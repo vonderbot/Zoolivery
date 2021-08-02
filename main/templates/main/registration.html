@@ -1,0 +1,44 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container" style="min-width: 200px; background-color: var(--full_bg_color);">
+    <center>
+        <form class="form_style" id="form" method="post" action="/registration_check">
+            {% csrf_token %}
+            {% if error %}
+            <br>
+            <font face="RalewayRegular" size="4" style="background-color: var(--border_color);
+                padding: 10px; color:var(--full_bg_color); border-radius: 25px;">
+                {{ error }}
+            </font><br>
+            {% endif %}
+             <br>Логин: <input name="username" id="first_input" type="text"
+                             oninput="not_empty1()" pattern="[A-Za-zА-Яа-яЁё0-9]{3,}" required/>
+            <span class="ghost" id="empty4">
+                    <font face="RalewayRegular" size="2">
+                    <br>(логин должен содержать не меньше 3 символов)
+                    </font>
+                </span>
+            <span class="ghost" id="empty5" hidden="true">
+                    <font face="RalewayRegular" size="2">
+                    <br>(логин недолжен содержать пробелы и специальные символы)
+                    </font>
+                </span>
+
+            <p>Пароль: <input name="password1" type="password" required/></p>
+            <p>Повторите пароль: <input name="password2" type="password" required/></p>
+            <p>Ваше имя: <input name="name" type="text" pattern="^[А-Яа-яЁё]+$" required/></p>
+            <p>Ваш телефон: <input name="phone" type="tel" value="+380" pattern="\+380[0-9]{9}" required/></p>
+            <p>Ваш полный адрес:<input name="address" type="text" required/></p>
+            <button class="profile_button" type="submit" style="margin:5px;">
+                <Font face="Times New Roman" size="4">Зарегистрироваться</Font>
+            </button>
+            <button class="profile_button" type="reset" value="Очистить" id="btn2" onClick='back()' style="margin:5px;">
+                <Font face="Times New Roman" size="4">Очистить</Font>
+            </button>
+        </form>
+    </center>
+</div>
+<div class="first_container" style="min-height: 350px; background-color: var(--full_bg_color); ">
+</div>
+{% endblock %}

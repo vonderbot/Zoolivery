@@ -1,0 +1,66 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container" style="min-height: 700px;">
+<!--    <font face="RalewayRegular" size="6">-->
+<!--        {% for element in big_request %}-->
+<!--        {{ element }}<br>-->
+<!--        {% endfor %}-->
+<!--        {% for element in big_request %}-->
+<!--        {{ element }}-->
+<!--        {{ element.sum_cost }}-->
+<!--        <br>-->
+<!--        {% endfor %}-->
+<!--    </font>-->
+<!--    <form class="form_style" id="form" method="post" action="/test" style="margin:0px; padding:0px;">-->
+<!--        {% csrf_token %}-->
+<!--        <font face="RalewayRegular" size="5">-->
+<!--            <strong>-->
+<!--                Поиск заказов по типу товара в нём:<br>-->
+<!--            </strong>-->
+<!--        </font>-->
+<!--        <input name="number" type="text" required/><br>-->
+<!--        <button class="profile_button" type="submit" style="margin:5px;">-->
+<!--            <Font face="Times New Roman" size="5">Найти</Font>-->
+<!--        </button>-->
+<!--    </form>-->
+<!--    <form class="form_style" id="form2" method="get" action="/test" style="margin:0px; padding:0px;">-->
+<!--        <button class="profile_button" type="submit" style="margin:5px;">-->
+<!--            <Font face="Times New Roman" size="5">Сбросить фильтрацию по номеру</Font>-->
+<!--        </button>-->
+<!--        <br>-->
+<!--    </form>-->
+<!--    <font face="RalewayRegular" size="6">-->
+<!--        <h3>Заказы содержащие товары с типом "{{type}}":</h3>-->
+<!--    </font>-->
+    {%if big_request%}
+    {% for element in big_request %}
+<!--    {{element}}<br>-->
+    <font face="RalewayRegular" size="6">
+        <strong>Заказ номер: {{element.id}}</strong>
+    </font>
+    <br><br>
+    <font face="RalewayRegular" size="5">
+        Заказчик: {{element.user_id}}<br>
+        Сумма заказа: {{element.sum_cost}}<br>
+        Статус заказа: {{element.status_id}}<br>
+        <strong>Товары:</strong><br>
+        {%for element2 in all_receipt_has_product%}
+        {% if element == element2.receipt_id %}
+        {{element2.product_id}} x {{element2.amount}}<br>
+        {% endif %}
+        {% endfor %}
+        <br>
+    </font>
+    <br>
+
+    {% endfor%}
+    {% else %}
+    <center>
+        <font face="RalewayRegular" size="6">
+            <h1>Нет заказов.</h1>
+        </font>
+    </center>
+    {% endif %}
+</div>
+{% endblock %}

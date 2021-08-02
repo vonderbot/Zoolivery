@@ -1,0 +1,85 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container" style="min-height: 700px;">
+    {% for element in user_data %}
+    <font face="RalewayRegular" size="6">
+        <center>
+            <h3>Ваш личный профиль<br><br>
+            {% if error %}
+            <font face="RalewayRegular" size="6" style="background-color: var(--border_color);
+                padding: 10px; color:var(--full_bg_color); border-radius: 25px;">
+                {{ error }}
+            </font>
+            {% endif %}</h3>
+        </center>
+        <strong>Логин: </strong> {{ element.login }}
+        <form class="form_style" id="form" method="post" action="/change_user_data" style="margin:0px; padding:0px;">
+            {% csrf_token %}
+            <input name="username" id="first_input" type="text"
+                   oninput="not_empty1()" pattern="[A-Za-zА-Яа-яЁё0-9]{3,}" required/>
+            <span class="ghost" id="empty4">
+                    <font face="RalewayRegular" size="2">
+                    (логин должен содержать не меньше 3 символов)
+                    </font>
+                </span>
+            <span class="ghost" id="empty5" hidden="true">
+                    <font face="RalewayRegular" size="2">
+                    (логин недолжен содержать пробелы и специальные символы)
+                    </font>
+                </span><br>
+            <button class="profile_button" type="submit" style="margin:5px;">
+                <Font face="Times New Roman" size="5">Изменить</Font>
+            </button>
+        </form>
+        <strong>Пароль: </strong><br>
+        <form class="form_style" id="form" method="post" action="/change_user_data" style="margin:0px; padding:0px;">
+            {% csrf_token %}
+            <input name="password1" type="password" required/><br>
+            <input name="password2" type="password" required/><br>
+            <button class="profile_button" type="submit" style="margin:5px;">
+                <Font face="Times New Roman" size="5">Изменить</Font>
+            </button>
+        </form>
+        <strong>Имя: </strong>{{ element.name }}
+        <form class="form_style" id="form" method="post" action="/change_user_data" style="margin:0px; padding:0px;">
+            {% csrf_token %}
+            <input name="name" type="text" pattern="^[А-Яа-яЁё]+$" required/><br>
+            <button class="profile_button" type="submit" style="margin:5px;">
+                <Font face="Times New Roman" size="5">Изменить</Font>
+            </button>
+        </form>
+        <strong>Телефон: </strong>{{ element.phone }}
+        <form class="form_style" id="form" method="post" action="/change_user_data" style="margin:0px; padding:0px;">
+            {% csrf_token %}
+            <input name="phone" type="tel" value="+380" pattern="\+380[0-9]{9}" required/><br>
+            <button class="profile_button" type="submit" style="margin:5px;">
+                <Font face="Times New Roman" size="5">Изменить</Font>
+            </button>
+        </form>
+        <strong>Адрес: </strong>{{ element.address }}
+        <form class="form_style" id="form" method="post" action="/change_user_data" style="margin:0px; padding:0px;">
+            {% csrf_token %}
+            <input name="address" type="text" required/><br>
+            <button class="profile_button" type="submit" style="margin:5px;">
+                <Font face="Times New Roman" size="5">Изменить</Font>
+            </button>
+        </form>
+        <br><br>
+        <button class="profile_button" onClick='location.href="log_out"'>
+            <Font face="Times New Roman" size="5">Выйти с аккаунта</Font>
+        </button>
+        <br><br>
+        <button class="profile_button" onClick='location.href="my_receipt_list"'>
+            <Font face="Times New Roman" size="5">Просмотреть мои заказы</Font>
+        </button>
+        {% if user_role == "Курьер" %}
+        <br><br>
+        <button class="profile_button" onClick='location.href="all_receipt_list"'>
+            <Font face="Times New Roman" size="5">Просмотреть список заказов</Font>
+        </button>
+        {% endif %}
+    </font>
+    {% endfor %}
+</div>
+{% endblock %}

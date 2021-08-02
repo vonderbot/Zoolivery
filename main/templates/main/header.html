@@ -1,0 +1,76 @@
+{% load static %}
+<img usemap="#golovne" src="{% static 'main/img/logo.png' %}" height="70"
+     style="margin: 0px; padding: 0px;position: relative; left: 5%;">
+<map name="golovne">
+    <area shape="default" href="main">
+</map>
+<!--        <img src="{% static 'main/img/user_icon.png' %}" class="picture_to_right" width="55" height="55">-->
+<ul id="navbar">
+    <li>
+        {% if username_login %}
+        {% if header_secret_number == 5 %}
+        <button class="active_menu_button" onClick='location.href="profile"'>
+            <font class="menu_font">{{username_login}}</font>
+        </button>
+        {% else %}
+        <button class="menu_button" onClick='location.href="profile"'>
+            <font class="menu_font">{{username_login}}</font>
+        </button>
+        {% endif %}
+        {% else %}
+        {% if header_secret_number == 5 %}
+        <button class="active_menu_button">
+            <font class="menu_font">Войти в аккаунт</font>
+        </button>
+        {% else %}
+        <button class="menu_button" onClick='location.href="log_in"'>
+            <font class="menu_font">Войти в аккаунт</font>
+        </button>
+        {% endif %}
+        {% endif %}
+    </li>
+    <li>
+        {% if header_secret_number == 4 %}
+        <button class="active_menu_button">
+            <font class="menu_font">Контакты</font>
+        </button>
+        {% else %}
+        <button class="menu_button" onClick='location.href="contact"'>
+            <font class="menu_font">Контакты</font>
+        </button>
+        {% endif %}
+    </li>
+    <li>
+        {% if header_secret_number == 3 %}
+        <button class="active_menu_button">
+            <font class="menu_font">Доставка</font>
+        </button>
+        {% else %}
+        <button class="menu_button" onClick='location.href="delivery"'>
+            <font class="menu_font">Доставка</font>
+        </button>
+        {% endif %}
+    </li>
+    <li>
+        {% if header_secret_number == 2 %}
+        <button class="active_menu_button">
+            <font class="menu_font">Магазин</font>
+        </button>
+        {% else %}
+        <button class="menu_button" onClick='location.href="market"'>
+            <font class="menu_font">Магазин</font>
+        </button>
+        {% endif %}
+    </li>
+    <li>
+        {% if header_secret_number == 1 %}
+        <button class="active_menu_button">
+            <font class="menu_font">Главная</font>
+        </button>
+        {% else %}
+        <button class="menu_button" onClick='location.href="main"'>
+            <font class="menu_font">Главная</font>
+        </button>
+        {% endif %}
+    </li>
+</ul>

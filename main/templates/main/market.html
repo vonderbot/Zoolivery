@@ -1,0 +1,161 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container"
+     style="background-color: var(--full_bg_color);padding: 10px 0px 0px 0px;margin: 0px 0px 0px 0px;">
+    <img src="{% static 'main/img/bin.png' %}" onclick="show()" height="75px" width="75px" border="0px"
+         class="picture_to_right" style="margin: 2px 2px 2px 2px;">
+    <form id="form" method="post" action="/market" style="display: inline; margin:0px; padding:0px;">
+        {% csrf_token %}
+        <font face="RalewayRegular" size="5">
+            <strong>
+                Поиск товара по названию:
+            </strong>
+        </font>
+        <input name="number" type="text" required/><br>
+        <button class="profile_button" type="submit" style="margin:5px;">
+            <Font face="Times New Roman" size="5">Найти</Font>
+        </button>
+    </form>
+    <form id="form2" method="get" action="/market" style="display: inline;margin:0px; padding:0px;">
+        <button class="profile_button" type="submit" style="margin:5px;">
+            <Font face="Times New Roman" size="5">Сбросить фильтрацию по названию</Font>
+        </button>
+        <br>
+    </form>
+</div>
+<div class="wraper">
+</div>
+{% if products %}
+{% for element in products %}
+<div class="goods_container">
+    <center>
+        <img src="{{ element.img }}" class="goods_image"><br>
+        <font face="Times New Roman" size="6">{{ element.name }}</font>
+        <p>
+            <font face="Times New Roman" size="4">Количество в наличии: {{ element.amount }}</font>
+        </p>
+        <p>
+            <font face="Times New Roman" size="4">Цена: {{ element.price }} UAH</font>
+        </p>
+        <button class="add_to_buy_button"
+                onClick='buy("{{ element.name }}: {{ element.price }} UAH", "{{ element.price }}", {{element.id}});'>
+            <Font face="Times New Roman" size="5">Добавить в корзину</Font>
+        </button>
+    </center>
+</div>
+{% endfor %}
+{% else %}
+<div class="first_container" style="min-height: 600px;">
+    <font face="RalewayRegular" size="6">
+        <center>
+            <h1>Товаров нет!</h1>
+        </center>
+    </font>
+</div>
+{% endif %}
+<div id="gray" class="gray"></div>
+<div id="window" class="window">
+    <form>
+        <p style="top: 13px; position: relative">
+            <font face=" RalewayRegular" size="4" style="left: 15px; position: relative">
+                Ваш заказ оформлен!
+            </font>
+            <span class="closebtn" style="top: 8px; font-size: 40px;" onClick="not_show()">×</span>
+        </p>
+    </form>
+</div>
+<div id="bin_window" class="bin_window">
+    <div id="bin_window_window" class="bin_window_window">
+        <script type="text/javascript">
+            var i = -1;
+
+        </script>
+        <script type="text/javascript">
+            var sum = "{{sum_cost}}";
+
+        </script>
+        {% if products_in_cart%}
+        {% for element in products_in_cart %}
+        <div class="bin_label" data-cost="{{ element.price }}" id={{forloop.counter0}}>
+            <font face="RalewayRegular" size="4">
+                {{ element.name }}: {{ element.price }} UAH
+            </font>
+            <span class="closebtn" onclick="delete_product_in_cart({{element.id}}, {{forloop.counter0}})">
+            ×
+            </span>
+        </div>
+        <script type="text/javascript">
+            var i = {{forloop.counter0}};
+
+
+        </script>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <form>
+        <div class="sum_class">
+            <font id="sum_costs" face="Times New Roman" size="4">Общая цена: {{sum_cost}} UAH</font>
+        </div>
+        <center>
+            <button class="bin_button" onClick='offer_start(); change_input(); return false;' style="left: 2%;">Оформить заказ</button>
+            <button class="bin_button" onClick='not_show(); return false;' style="right: 2%;">Продолжить покупки
+            </button>
+        </center>
+    </form>
+</div>
+
+<div id="bin_window1" class="bin_window" style="padding: 5px; min-height: 200px;height: 200px;">
+    <form method="post" action="/receipt_check">
+        {% csrf_token %}
+        {% if user_data%}
+        {% for element in user_data%}
+        <p>Ваш телефон: <input name="phone" type="tel" value="{{element.phone}}" pattern="\+380[0-9]{9}" required/></p>
+        {% endfor %}
+        {% else %}
+        <p>Ваш телефон: <input name="phone" type="tel" value="+380" pattern="\+380[0-9]{9}" required/></p>
+        {% endif %}
+        Тип доставки: <select id="delivery_type" name="delivery_type" onchange='change_input()'>
+        <option selected="selected" value="Самовывоз">Самовывоз</option>
+        <option value="Почта">Почта</option>
+        <option value="Курьер">Курьер</option>
+    </select>
+        {% if user_data%}
+        {% for element in user_data%}
+        <script type="text/javascript">
+            var address_value = "{{element.address}}";
+
+        </script>
+        {% endfor %}
+        {% else %}
+        <script type="text/javascript">
+            var address_value = "";
+
+        </script>
+        {% endif %}
+        <p id="Почта" hidden="true">Почтовое отделение:<input name="post_station_address" type="text" required/></p>
+        <p id="Курьер" hidden="true">Ваш полный адрес:<input name="address" type="text" required/></p>
+        <center>
+            <button class="bin_button" type="submit" style="left: 2%; top:150px;">Оформить</button>
+            <button class="bin_button" onClick='not_show(); return false;' style="right: 2%; top:150px;">Продолжить
+                покупки
+            </button>
+        </center>
+    </form>
+</div>
+
+
+{% if products_in_cart%}
+<script type="text/javascript">
+   var a = 1;
+
+
+</script>
+{%else%}
+<script type="text/javascript">
+   var a = 0;
+
+
+</script>
+{% endif %}
+{% endblock %}

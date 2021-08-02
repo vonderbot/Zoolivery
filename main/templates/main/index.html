@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <title>
+    Zoolivery
+  </title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+</head>
+<body>
+  <header>
+    {% include 'main/header.html' %}
+  </header>
+  <main>
+    <div class="flex-container">
+      <div id="navigation_menu" class="navigation_menu">
+        {% include 'main/header.html' %}
+      </div>
+      <div class="wraper">
+      </div>
+      {% block main_content %}
+      {% endblock %}
+    </div>
+  </main>
+  <footer class="footer">
+    <font face="RalewayRegular" size="4">
+      Интернет-зоомагазин
+      <br/>
+      2021-2021
+    </font>
+  </footer>
+  <script src="{% static 'main/js/main.js' %}"></script>
+</body>
+</html>

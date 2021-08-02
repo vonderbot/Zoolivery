@@ -1,0 +1,42 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container" style="min-width: 200px; background-color: var(--full_bg_color);">
+    <center>
+        <form class="form_style" id="form" method="post" action="/log_in_check">
+            {% csrf_token %}
+            {% if error %}
+            <p>
+                <font face="RalewayRegular" size="4" style="background-color: var(--border_color);
+                padding: 10px; color:var(--full_bg_color); border-radius: 25px;">
+                    {{ error }}
+                </font>
+            </p>
+            {% endif %}
+            <p>Логин: <input name="username" id="first_input" type="text"
+                             oninput="not_empty1()" pattern="[A-Za-zА-Яа-яЁё0-9]{3,}" required/></p>
+            <span class="ghost" id="empty4">
+                    <font face="RalewayRegular" size="2">
+                    (логин должен содержать не меньше 3 символов)
+                    </font>
+                </span>
+            <span class="ghost" id="empty5" hidden="true">
+                    <font face="RalewayRegular" size="2">
+                    <br>(логин недолжен содержать пробелы и специальные символы)
+                    </font>
+                </span>
+            <p>Пароль: <input name="password" id="second_input" type="password" required/></p>
+            <input class="form_button" type="submit" id="btn1" value="Отправить"/>
+            <input class="form_button" type="reset" value="Очистить" id="btn2" onClick='back()'/>
+        </form>
+        <font face="RalewayRegular" size="2">
+            У вас ещё нет своего аккаунта?
+            <a href="registration">
+                Зарегистрироваться!
+            </a>
+        </font>
+    </center>
+</div>
+<div class="first_container" style="min-height: 350px; background-color: var(--full_bg_color); ">
+</div>
+{% endblock %}

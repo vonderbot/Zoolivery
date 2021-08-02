@@ -1,0 +1,60 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container" style="min-height: 700px;">
+    <form class="form_style" id="form" method="post" action="/all_receipt_list" style="margin:0px; padding:0px;">
+        {% csrf_token %}
+        <font face="RalewayRegular" size="5">
+            <strong>
+                Поиск заказа по номеру:<br>
+            </strong>
+        </font>
+        <input name="number" type="number" min="0" required/><br>
+        <button class="profile_button" type="submit" style="margin:5px;">
+            <Font face="Times New Roman" size="5">Найти</Font>
+        </button>
+    </form>
+    <form class="form_style" id="form2" method="get" action="/all_receipt_list" style="margin:0px; padding:0px;">
+        <button class="profile_button" type="submit" style="margin:5px;">
+            <Font face="Times New Roman" size="5">Сбросить фильтрацию по номеру</Font>
+        </button>
+        <br>
+    </form>
+    {%if my_receipts%}
+    {% for element in my_receipts %}
+    <font face="RalewayRegular" size="6">
+        <strong>Заказ номер: {{element.id}}</strong>
+    </font>
+    <br><br>
+    <font face="RalewayRegular" size="5">
+        Тип доставки: {{element.delivery_id}}<br>
+        Сумма заказа: {{element.sum_cost}}<br>
+        Статус заказа:
+        <select id="{{forloop.counter0}}" name="delivery_status" data-receipt="{{element.id}}"
+                onchange='change_status({{forloop.counter0}})'>
+            {%for element2 in all_receipts_statuses%}
+            {% if element.status_id.name == element2.name %}
+            <option selected="selected" value="{{element2.id}}">{{element2.name}}</option>
+            {% else %}
+            <option value="{{element2.id}}">{{element2.name}}</option>
+            {% endif %}
+            {% endfor %}
+        </select><br>
+        <strong>Товары:</strong><br>
+        {%for element2 in all_receipt_has_product%}
+        {% if element == element2.receipt_id %}
+        {{element2.product_id}} x {{element2.amount}}<br>
+        {% endif %}
+        {% endfor %}
+        <br>
+    </font>
+    {% endfor%}
+    {% else %}
+    <center>
+        <font face="RalewayRegular" size="6">
+            <h1>Нет активных заказов.</h1>
+        </font>
+    </center>
+    {% endif %}
+</div>
+{% endblock %}

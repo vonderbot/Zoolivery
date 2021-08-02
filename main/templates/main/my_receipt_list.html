@@ -1,0 +1,44 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block main_content %}
+<div class="first_container" style="min-height: 700px;">
+    <form class="form_style" id="form" method="post" action="/my_receipt_list" style="margin:0px; padding:0px;">
+        {% csrf_token %}
+        <font face="RalewayRegular" size="5">
+            <strong>
+                Поиск заказа по номеру:<br>
+            </strong>
+        </font>
+        <input name="number" type="number" min="0" required/><br>
+        <button class="profile_button" type="submit" style="margin:5px;">
+            <Font face="Times New Roman" size="5">Найти</Font>
+        </button>
+        <br>
+    </form>
+     <form class="form_style" id="form2" method="get" action="/my_receipt_list" style="margin:0px; padding:0px;">
+        <button class="profile_button" type="submit" style="margin:5px;">
+            <Font face="Times New Roman" size="5">Сбросить фильтрацию по номеру</Font>
+        </button>
+        <br>
+    </form>
+    {%if my_receipts%}
+    {% for element in my_receipts %}
+    <font face="RalewayRegular" size="6">
+        <strong>Заказ номер: {{element.id}}</strong>
+    </font>
+    <br><br>
+    <font face="RalewayRegular" size="5">
+        Сумма заказа: {{element.sum_cost}}<br>
+        Статус заказа: {{element.status_id}}<br>
+    </font>
+    <br>
+    {% endfor%}
+    {% else %}
+    <center>
+        <font face="RalewayRegular" size="6">
+            <h1>У вас нет заказов, сделаных с этого аккаунта.</h1>
+        </font>
+    </center>
+    {% endif %}
+</div>
+{% endblock %}

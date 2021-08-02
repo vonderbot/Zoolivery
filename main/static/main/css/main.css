@@ -1,0 +1,405 @@
+/* Стили с основной странички */
+:root {
+  --main_bg_color: #ffe4c1;
+  --full_bg_color: #ffffff;
+  --border_color: #837567;
+  --hover_color: #b9a285;
+}
+
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+header {
+  background-color: var(--main_bg_color);
+  position: fixed;
+  top: -75px;
+  left: 0px;
+  width: 100%;
+  display: none;
+  animation-duration: 300ms;
+  animation-name: menu_drop;
+  animation-fill-mode: forwards;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 5px;
+  border-style: solid;
+  border-color: var(--border_color);
+  z-index: 1000;
+}
+
+main {
+  min-height: 200%;
+}
+
+footer {
+  min-height: 50px;
+  margin: 0px;
+  background: var(--main_bg_color);
+  padding: 10px;
+}
+
+@keyframes menu_drop {
+  from {
+    top: -75px;
+  }
+
+  to {
+    top: 0px;
+  }
+}
+
+#navbar {
+  margin: 0px;
+  height: 30px;
+  padding: 0;
+  float: right;
+  height: 75px;
+  list-style-type: none;
+  min-width: 500px;
+}
+
+#navbar ul {
+  z-index: 500;
+  display: none;
+  position: absolute;
+  top: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#navbar li {
+  float: right;
+  position: relative;
+}
+
+#navbar li:hover ul {
+  display: block;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--full_bg_color);
+  justify-content: center;
+}
+
+.first_container {
+  background-color: var(--main_bg_color);
+  min-width: 90%;
+  margin: 2%;
+  padding: 2%;
+}
+
+.navigation_menu {
+  border-top: 5px;
+  border-bottom: 5px;
+  border-right: 0px;
+  border-left: 0px;
+  border-style: solid;
+  border-color: var(--border_color);
+  margin-top: 70px;
+  background: var(--main_bg_color);
+  min-width: 100%;
+}
+
+.wraper {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.menu_button {
+  background: var(--main_bg_color);
+  text-align: center;
+  width: 120px;
+  height: 75px;
+  border: 0px;
+}
+
+.active_menu_button {
+  background: var(--border_color);
+  color: var(--full_bg_color);
+  text-align: center;
+  width: 120px;
+  height: 75px;
+  border: 0px;
+}
+
+.menu_button:hover {
+  background: var(--border_color);
+  color: var(--full_bg_color);
+}
+
+.menu_font {
+  font-family: "RalewayRegular";
+  font-size: large;
+}
+
+.picture_to_right {
+  float: right;
+  margin: 10px 10px 10px 10px;
+}
+
+@font-face {
+  font-family: "RalewayRegular";
+  src: url("/static/main/fonts/raleway.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Стили со странички магазина */
+.goods_container {
+  word-wrap: break-word;
+  background-color: var(--main_bg_color);
+  border-radius: 25px;
+  min-width: 305px;
+  max-width: 305px;
+  min-height: 500px;
+  max-height: 550px;
+  margin: 50px;
+  padding: 25px;
+}
+
+.add_to_buy_button {
+  background: var(--main_bg_color);
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  border: 2px;
+  border-color: var(--border_color);
+  border-style: solid;
+  border-radius: 25px;
+}
+
+.goods_image {
+  border: 3px solid var(--border_color);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  height: 300px;
+  width: 300px;
+}
+
+.add_to_buy_button:hover {
+  background-color: var(--hover_color);
+}
+
+.add_to_buy_button:active {
+  background-color: var(--border_color);
+  color: var(--full_bg_color);
+}
+
+.gray {
+  background-color: rgba(1, 1, 1, 0.75);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  z-index: 1;
+}
+
+.bin_window {
+  width: 410px;
+  min-width: 410px;
+  height: 60%;
+  min-height: 500px;
+  background-color: var(--main_bg_color);
+  border: 3px solid var(--border_color);
+  border-radius: 20px;
+  display: none;
+  position: fixed;
+  left: 39%;
+  right: 0;
+  top: -70%;
+  bottom: 0;
+  z-index: 2;
+  animation-duration: 1000ms;
+  animation-name: bin_window_drop;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bin_window_drop {
+  from {
+    top: -70%;
+  }
+
+  to {
+    top: 10%;
+  }
+}
+
+.bin_window_window {
+  border-bottom: 2px solid var(--border_color);
+  overflow-y: auto;
+  width: 410px;
+  min-width: 410px;
+  min-height: 410px;
+  max-height: 49%;
+  background-color: var(--main_bg_color);
+  margin: 3px;
+  position: fixed;
+  left: 39%;
+  right: 0;
+  top: 12%;
+  bottom: 0;
+  z-index: 2;
+  animation-duration: 1000ms;
+  animation-name: bin_window_window_drop;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bin_window_window_drop {
+  from {
+    top: -68%;
+  }
+
+  to {
+    top: 12%;
+  }
+}
+
+.sum_class {
+  position: absolute;
+  top: 86%;
+  left: 35%;
+}
+
+.bin_button {
+  position: absolute;
+  top: 90%;
+  border-style: solid;
+  border-radius: 20px;
+  background: var(--main_bg_color);
+  border-color: var(--border_color);
+  padding: 8px 16px;
+  margin: 5px;
+  font-size: 16px;
+  min-width: 190px;
+}
+
+.bin_button:hover {
+  background-color: var(--hover_color);
+}
+
+.bin_button:active {
+  background-color: var(--border_color);
+  color: var(--full_bg_color);
+}
+
+.bin_label {
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 2px solid var(--border_color);
+  width: 100%;
+  min-height: 10%;
+  line-height: 50px;
+}
+
+/* Крестик */
+.closebtn {
+  position: relative;
+  top: 15px;
+  right: 15px;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 26px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  transform: rotate(180deg);
+}
+
+.window {
+  width: 400px;
+  min-width: 410px;
+  height: 100px;
+  min-height: 100px;
+  background-color: var(--main_bg_color);
+  border: 3px solid var(--border_color);
+  border-radius: 20px;
+  display: none;
+  position: fixed;
+  left: 39%;
+  right: 0;
+  top: 70%;
+  bottom: 0;
+  z-index: 200;
+  transform: rotate(360deg);
+  animation-duration: 1000ms;
+  animation-name: window_drop;
+  animation-fill-mode: forwards;
+}
+
+@keyframes window_drop {
+  0% {
+    transform: rotate(0deg);
+    left: -40%;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    left: 39%;
+  }
+}
+/* Стили со странички доставки */
+/* Стили со странички контактов */
+/* Стили со странички входа в аккаунт */
+.form_button {
+  background: var(--main_bg_color);
+  height: 50px;
+  width: 100px;
+  text-align: center;
+  border: 2px;
+  border-color: var(--border_color);
+  border-style: solid;
+  border-radius: 25px;
+}
+
+.form_button:hover {
+  background-color: var(--hover_color);
+}
+
+.form_button:active {
+  background-color: var(--border_color);
+  color: var(--full_bg_color);
+}
+
+.form_style{
+  background-color: var(--main_bg_color);
+  border-radius: 25px;
+  margin: 20px;
+  padding: 20px;
+}
+.ghost {
+      color: rgba(0, 0, 0, 0.5);
+    }
+/* Стили со странички профиля */
+.profile_button {
+  background: var(--main_bg_color);
+  height: 50px;
+  min-width: 100px;
+  text-align: center;
+  border: 2px;
+  border-color: var(--border_color);
+  border-style: solid;
+  border-radius: 25px;
+}
+.profile_button:hover {
+  background-color: var(--hover_color);
+}
+
+.profile_button:active {
+  background-color: var(--border_color);
+  color: var(--full_bg_color);
+}
